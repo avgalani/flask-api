@@ -38,8 +38,9 @@ class Login(Resource):
         else:
             return {"message": "nok"}, 401
 
-
 class Users(Resource):
+    @auth_token_required
+    @roles_required('admin')
     def get(self):
         all_users = User.query.all()
         result = users_schema.dump(all_users)
