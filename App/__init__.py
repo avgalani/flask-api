@@ -10,7 +10,7 @@ app.config.from_object(config)
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
-from App.models import User, Role, roles_users, Service
+from App.models import User, Role, roles_users, Service, services_users
 from App.routes import api
 
 # Flask-Security

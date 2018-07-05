@@ -94,10 +94,14 @@ class Services(Resource):
             return "Did not succeed"
         return (name + " created and added to db")
 
+    @auth_token_required
+    @roles_required('automation')
     def delete(self):
+        ## TODO unhappy flows
         id = request.json['id']
         service = Service.query.filter_by(id=id).delete()
-        db.session.commit()        
+        db.session.commit()
+        return "User has been succesfully deleted"        
 
 class Roles(Resource):
     @auth_token_required
