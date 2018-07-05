@@ -29,11 +29,17 @@ default_services =[
 # init database data
 try:
     db.create_all()
-    db.session.add(User('test1', 'test1'))
-    db.session.add(User('test2', 'test2'))
-    db.session.add(Role('admin', 'admin role'))
+    db.session.add(User('nedstark@doe.john', 'password'))
+    db.session.add(User('kaimelannister@doe.john', 'password'))
+    db.session.add(User('cerseilannister@doe.john', 'password'))
+    db.session.add(User('daeneristargaryen@doe.john', 'password'))
+    db.session.add(User('littlefinger@doe.john', 'password'))
+    db.session.add(User('jonsnow@doe.john', 'password'))
+    db.session.add(Role('admin', 'Can Create/Delete Users and Services'))
+    db.session.add(Role('user', 'Can Create Services'))
+    db.session.add(Role('automation', 'Can Delete Services'))
     for element in default_services:
-        db.session.add(Services(element[0],element[1]))
+        db.session.add(Service(element[0],element[1]))
     db.session.commit()
     db.engine.execute(roles_users.insert(), user_id=1, role_id=1)
     db.session.commit()

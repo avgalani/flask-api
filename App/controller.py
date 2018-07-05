@@ -45,7 +45,6 @@ class Users(Resource):
     def post(self):
         username = request.json['username']
         password = django_pbkdf2_sha256.encrypt(request.json['password'])
-        print(password)
         new_user = User(username, password)
         result = user_schema.dump(new_user, False)
         try: 
@@ -68,6 +67,21 @@ class Services(Resource):
         all_services = Service.query.all()
         result = services_schema.dump(all_services)
         return jsonify(result.data)
+
+    def post(self):
+        name = request.json['name']
+        properties = str(request.json['properties'])
+        new_service = Service(name, properties)
+        result = service_schema.dump(new_service, False)
+        try:
+            db.session.add(new_service)
+            db.session.commit()
+        except:
+            db.session.rollback()
+            return "Did not succeed"
+        return (name + " created and added to db")
+
+        
 
 class Roles(Resource):
     def get(self):
