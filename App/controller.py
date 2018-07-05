@@ -40,8 +40,8 @@ class Login(Resource):
             return {"message": "nok"}, 401
 
 class Users(Resource):
-    @auth_token_required
-    @roles_required('admin')
+    # @auth_token_required
+    # @roles_required('admin')
     def post(self):
         username = request.json['username']
         password = django_pbkdf2_sha256.encrypt(request.json['password'])
@@ -56,17 +56,27 @@ class Users(Resource):
         return (username + " created")
             
 
-    @auth_token_required
-    def get(self):
-        all_users = User.query.all()
-        result = users_schema.dump(all_users)
-        return jsonify(result.data)
+    # @auth_token_required
+    def get(self, id = None):
+        if id:
+            user = User.query.get(id)
+            result = user_schema.dump(user)
+            return jsonify(result.data['username'])
+        else:
+            all_users = User.query.all()
+            result = users_schema.dump(all_users)
+            return jsonify(result.data)
 
 class Services(Resource):
-    def get(self):
-        all_services = Service.query.all()
-        result = services_schema.dump(all_services)
-        return jsonify(result.data)
+    def get(self, id = None):
+        if id:
+            service = Service.query.get(id)
+            result = service_schema.dump(service)
+            return jsonify(result.data)
+        else:
+            all_services = Service.query.all()
+            result = services_schema.dump(all_services)
+            return jsonify(result.data)
 
     def post(self):
         name = request.json['name']

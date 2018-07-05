@@ -19,10 +19,10 @@ security = Security().init_app(app, user_datastore, register_blueprint=False)
 
 default_services =[
     ("applejack","{'name': 'site1.com','region': 'nyc3','size':'512mb','image': 'ubuntu-14-04-x64','ssh_keys': None,'backups':False,'ipv6': False,'user_data': None,'private_networking':None,'volumes': None,'tags': ['frontend']}"),
-    ('Fluttershy','{"name": "example.com","region": "nyc3","size":"512mb","image": "ubuntu-16-04-x64","ssh_keys": None,"backups":False,"ipv6": true,"user_data": None,"private_networking": None,"volumes": None,"tags": ["frontend"]}'),
-    ('Rainbow Dash','{"name": "backend01","region": "nyc3","size":"512mb","image": "centos 7.0","ssh_keys": None,"backups": False,"ipv6":true,"user_data": None,"private_networking": None,"volumes":None,"tags": ["backend"]}'),
-    ('Rarity','{"name": "backend02","region": "nyc3","size": "1GB","image":"centos 7.0","ssh_keys": None,"backups": False,"ipv6":False,"user_data": None,"private_networking": None,"volumes":None,"tags": ["web"]}'),
-    ('Pinkie Pie','{"name": "db01","region": "nyc3","size": "2GB","image":"centos 7.0","ssh_keys": None,"backups": False,"ipv6": true,"user_data":None,"private_networking": None,"volumes": None,"tags": ["web"]}')]
+    ("Fluttershy","{'name': 'example.com','region': 'nyc3','size':'512mb','image': 'ubuntu-16-04-x64','ssh_keys': None,'backups':False,'ipv6': true,'user_data': None,'private_networking': None,'volumes': None,'tags': ['frontend']}"),
+    ("Rainbow Dash","{'name': 'backend01','region': 'nyc3','size':'512mb','image': 'centos 7.0','ssh_keys': None,'backups': False,'ipv6':true,'user_data': None,'private_networking': None,'volumes':None,'tags': ['backend']}"),
+    ("Rarity","{'name': 'backend02','region': 'nyc3','size': '1GB','image':'centos 7.0','ssh_keys': None,'backups': False,'ipv6':False,'user_data': None,'private_networking': None,'volumes':None,'tags': ['web']}"),
+    ("Pinkie Pie","{'name': 'db01','region': 'nyc3','size': '2GB','image':'centos 7.0','ssh_keys': None,'backups': False,'ipv6': true,'user_data':None,'private_networking': None,'volumes': None,'tags': ['web']}")]
 
 
 
