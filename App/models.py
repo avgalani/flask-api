@@ -19,6 +19,7 @@ class Role(db.Model, RoleMixin):
 
 
 class User(db.Model, UserMixin):
+    __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(11), nullable=False, unique=True)
     password = db.Column(db.String(128), nullable=False)
@@ -35,3 +36,13 @@ class User(db.Model, UserMixin):
         user = User.query.filter(User.username == username).one()
         if user and django_pbkdf2_sha256.verify(password, user.password):
             return user
+
+class Service(db.Model):
+    __tablename__ = "services"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(32), nullable= False, unique = True)
+    properties = db.Column(db.String(512), nullable = False, unique = False)
+
+    def __init__(self, name, properties):
+        self.name = name
+        self.properties = properties

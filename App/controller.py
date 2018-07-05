@@ -1,8 +1,9 @@
 __author__ = 'responsible'
 from flask_restful import Resource, reqparse
 from flask_security import auth_token_required, roles_required, login_user
-from .models import User
-from App import ma, jsonify
+from passlib.handlers.django import django_pbkdf2_sha256
+from .models import User, Service
+from App import ma, jsonify, request, db
 
 
 class UserSchema(ma.Schema):
@@ -13,6 +14,12 @@ class UserSchema(ma.Schema):
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 
+class ServiceSchema(ma.Schema):
+    class Meta:
+        fields = ('name','properties')
+
+service_schema = ServiceSchema()
+services_schema = ServiceSchema(many=True)
 
 class Protected(Resource):
     @auth_token_required
@@ -41,7 +48,29 @@ class Login(Resource):
 class Users(Resource):
     @auth_token_required
     @roles_required('admin')
+    def post(self):
+        username = request.json['username']
+        password = django_pbkdf2_sha256.encrypt(request.json['password'])
+        print(password)
+        new_user = User(username, password)
+        result = user_schema.dump(new_user, False)
+        try: 
+            db.session.add(new_user)
+            db.session.commit()
+        except:
+            db.session.rollback()
+            return "Did not succeed"
+        return (username + " created")
+            
+
+    @auth_token_required
     def get(self):
         all_users = User.query.all()
         result = users_schema.dump(all_users)
+        return jsonify(result.data)
+
+class Services(Resource):
+    def get(self):
+        all_services = Service.query.all()
+        result = services_schema.dump(all_services)
         return jsonify(result.data)
