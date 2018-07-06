@@ -1,9 +1,9 @@
 __author__ = 'Alex Galani'
 
 from flask_restful import Resource, reqparse
-from flask_security import auth_token_required, roles_required, login_user
+from flask_security import auth_token_required, roles_required, login_user, roles_accepted
 from passlib.handlers.django import django_pbkdf2_sha256
-from .models import User, Service, Role
+from .models import User, Service, Role, roles_users
 from App import ma, jsonify, request, db
 
 
@@ -42,18 +42,25 @@ class Login(Resource):
 
 class Users(Resource):
     @auth_token_required
-    def post(self):
+    @roles_required('admin')
+    def post(self, id = None):
         username = request.json['username']
         password = request.json['password']
-        new_user = User(username, password)
-        # result = user_schema.dump(new_user, False)
-        try: 
-            db.session.add(new_user)
+        if id:
+            role_id = request.json['role_id']
+            statement = roles_users.insert().values(user_id=id,role_id=role_id)
+            db.session.execute(statement)
             db.session.commit()
-        except:
-            db.session.rollback()
-            return "Did not succeed"
-        return (username + " created")
+        else:
+            new_user = User(username, password)
+            # result = user_schema.dump(new_user, False)
+            try: 
+                db.session.add(new_user)
+                db.session.commit()
+            except:
+                db.session.rollback()
+                return "Did not succeed"
+            return (username + " created")
             
 
     @auth_token_required
@@ -80,7 +87,7 @@ class Services(Resource):
             return jsonify(result.data)
 
     @auth_token_required
-    @roles_required('admin')
+    @roles_accepted('admin','user')
     def post(self):
         name = request.json['name']
         properties = str(request.json['properties'])
@@ -95,7 +102,7 @@ class Services(Resource):
         return (name + " created and added to db")
 
     @auth_token_required
-    @roles_required('automation')
+    @roles_accepted('admin','automation')
     def delete(self):
         ## TODO unhappy flows
         id = request.json['id']
