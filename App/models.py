@@ -1,7 +1,8 @@
-__author__ = 'responsible'
+__author__ = 'Alex Galani'
+
 from App import db
 from flask_security import UserMixin, RoleMixin
-from passlib.handlers.django import django_pbkdf2_sha256
+from passlib.hash import bcrypt
 
 roles_users = db.Table('roles_users',  
                        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
@@ -36,13 +37,13 @@ class User(db.Model, UserMixin):
 
     def __init__(self, username=None, password=None, active=True):
         self.username = username
-        self.password = django_pbkdf2_sha256.encrypt(password)
+        self.password = bcrypt.encrypt(password)
         self.active = True
 
     @staticmethod
     def authenticate(username, password):
         user = User.query.filter(User.username == username).one()
-        if user and django_pbkdf2_sha256.verify(password, user.password):
+        if user and bcrypt.verify(password, user.password):
             return user
 
 class Service(db.Model):

@@ -1,5 +1,6 @@
 
-__author__ = 'responsible'
+__author__ = 'Alex Galani'
+
 from App import app
 from flask_restful import Api
 from App.controller import Login, Users, Services, Roles

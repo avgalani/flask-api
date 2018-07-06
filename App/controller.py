@@ -1,4 +1,5 @@
-__author__ = 'responsible'
+__author__ = 'Alex Galani'
+
 from flask_restful import Resource, reqparse
 from flask_security import auth_token_required, roles_required, login_user
 from passlib.handlers.django import django_pbkdf2_sha256
@@ -37,16 +38,15 @@ class Login(Resource):
             login_user(user=user)
             return {"message": "login succeeded", "token": user.get_auth_token()}, 200
         else:
-            return {"message": "nok"}, 401
+            return {"message": "nok", "user": args}, 401
 
 class Users(Resource):
     @auth_token_required
-    @roles_required('admin')
     def post(self):
         username = request.json['username']
-        password = django_pbkdf2_sha256.encrypt(request.json['password'])
+        password = request.json['password']
         new_user = User(username, password)
-        result = user_schema.dump(new_user, False)
+        # result = user_schema.dump(new_user, False)
         try: 
             db.session.add(new_user)
             db.session.commit()

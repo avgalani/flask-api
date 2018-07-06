@@ -4,3 +4,4 @@ flask_security
 flask_marshmallow
 bcrypt
 flask_restful
+marshmallow-sqlalchemy
