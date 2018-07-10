@@ -22,9 +22,10 @@ default_services = [
     ("Fluttershy","{'name': 'example.com','region': 'nyc3','size':'512mb','image': 'ubuntu-16-04-x64','ssh_keys': None,'backups':False,'ipv6': true,'user_data': None,'private_networking': None,'volumes': None,'tags': ['frontend']}"),
     ("Rainbow Dash","{'name': 'backend01','region': 'nyc3','size':'512mb','image': 'centos 7.0','ssh_keys': None,'backups': False,'ipv6':true,'user_data': None,'private_networking': None,'volumes':None,'tags': ['backend']}"),
     ("Rarity","{'name': 'backend02','region': 'nyc3','size': '1GB','image':'centos 7.0','ssh_keys': None,'backups': False,'ipv6':False,'user_data': None,'private_networking': None,'volumes':None,'tags': ['web']}"),
-    ("Pinkie Pie","{'name': 'db01','region': 'nyc3','size': '2GB','image':'centos 7.0','ssh_keys': None,'backups': False,'ipv6': true,'user_data':None,'private_networking': None,'volumes': None,'tags': ['web']}")]
+    ("Pinkie Pie","{'name': 'db01','region': 'nyc3','size': '2GB','image':'centos 7.0','ssh_keys': None,'backups': False,'ipv6': true,'user_data':None,'private_networking': None,'volumes': None,'tags': ['web']}"),
+    ("Alex Tema","{'name': 'test1','region': 'nyc4','size': '128KB','image': 'for-the-horde-x64','ssh_keys': None,'backups': False,'ipv6':False,'user_data': None,'private_networking': None,'volumes':None,'tags': ['test']}")]
 
-default_users = ["nedstark@doe.john", "kaimelannister@doe.john", "cerseilannister@doe.john", "daeneristargaryen@doe.john", "littlefinger@doe.john", "jonsnow@doe.john", ]
+default_users = ["nedstark@doe.john", "kaimelannister@doe.john", "cerseilannister@doe.john", "daeneristargaryen@doe.john", "littlefinger@doe.john", "jonsnow@doe.john", "alexBO$$@doe.john"]
 
 # init database data
 try:

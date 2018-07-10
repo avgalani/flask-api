@@ -29,7 +29,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(11), nullable=False, unique=True)
     password = db.Column(db.String(128), nullable=False)
-    active = db.Column(db.Boolean(), default=True, nullable=False)
+    active = db.Column(db.Boolean(), default = True, nullable = False)
 
     roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
     services = db.relationship('Service', secondary=services_users, backref=db.backref('users', lazy='dynamic'))
@@ -50,9 +50,16 @@ class Service(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(32), nullable= False, unique = True)
     properties = db.Column(db.String(512), nullable = False, unique = False)
-    active = db.Column(db.Boolean(), default=True, nullable=False)
+    active = db.Column(db.Boolean(), default = True, nullable = False)
 
     def __init__(self, name, properties):
         self.name = name
         self.properties = properties
         self.active = True
+
+class Alex(db.Model):
+    __tablename__ = "test"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(32), nullable= False, unique = True)
+    properties = db.Column(db.String(512), nullable = False, unique = False)
+    active = db.Column(db.Boolean(), default = True, nullable = False)
