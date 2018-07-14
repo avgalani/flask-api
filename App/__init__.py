@@ -10,7 +10,7 @@ app.config.from_object(config)
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
-from App.models import User, Role, roles_users, Service, services_users
+from App.models import User, Role, roles_users, Service, services_users, Alex
 from App.routes import api
 
 # Flask-Security
@@ -35,9 +35,10 @@ try:
     db.session.add(Role('admin', 'Can Create/Delete Users and Services'))
     db.session.add(Role('user', 'Can Create Services'))
     db.session.add(Role('automation', 'Can Delete Services'))
+    db.session.add(Alex('Alex', 'Only in Alpha'))
+    db.session.add(Alex('Am reusit intr un final', 'Yay'))
     for element in default_services:
         db.session.add(Service(element[0],element[1]))
-    db.session.commit()
     db.engine.execute(roles_users.insert(), user_id=1, role_id=1)
     db.session.commit()
 except:

@@ -63,7 +63,7 @@ class Users(Resource):
             return (username + " created")
             
 
-    @auth_token_required
+    
     def get(self, id = None):
         if id:
             user = User.query.get(id)

@@ -63,3 +63,8 @@ class Alex(db.Model):
     name = db.Column(db.String(32), nullable= False, unique = True)
     properties = db.Column(db.String(512), nullable = False, unique = False)
     active = db.Column(db.Boolean(), default = True, nullable = False)
+
+    def __init__(self, name, properties):
+        self.name = name
+        self.properties = properties
+        self.active = True
