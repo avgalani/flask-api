@@ -1,7 +1,0 @@
-*.sqlite
-__pycache__
-venv
-.vscode
-*.pyc
-.DS_Store
-.gitignore
