@@ -3,7 +3,7 @@ __author__ = 'Alex Galani'
 from flask_restful import Resource, reqparse
 from flask_security import auth_token_required, roles_required, login_user, roles_accepted
 from passlib.handlers.django import django_pbkdf2_sha256
-from .models import User, Service, Role, roles_users
+from .models import User, Service, Role, roles_users, Alex
 from App import ma, jsonify, request, db
 
 
@@ -61,8 +61,6 @@ class Users(Resource):
                 db.session.rollback()
                 return "Did not succeed"
             return (username + " created")
-    
-    #aia e ma baiatuleee maaa
             
 
     
